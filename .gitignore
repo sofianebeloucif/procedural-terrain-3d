@@ -1,0 +1,44 @@
+# WebAssembly build outputs
+wasm/*.wasm
+wasm/*.js
+wasm/*.data
+
+# C object files
+c/*.o
+c/*.out
+
+# Emscripten cache
+.emscripten_cache/
+.emscripten_ports/
+
+# Node modules (if you add npm later)
+node_modules/
+package-lock.json
+yarn.lock
+
+# OS Files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editor directories
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Logs
+*.log
+npm-debug.log*
+
+# Screenshots (optional)
+# screenshots/*.png
+
+# Build directory
+build/
+dist/
+
+# Environment variables
+.env
+.env.local
