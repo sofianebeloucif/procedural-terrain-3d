@@ -7,7 +7,7 @@
 
 Real-time 3D procedural terrain generation using C/WebAssembly for high-performance computation and Three.js for rendering.
 
-[📺 Live Demo](#) | [📖 Technical Documentation](docs/TECHNICAL.md)
+[📺 Live Demo](https://sofianebeloucif.github.io/procedural-terrain-3d/) | [📖 Technical Documentation](docs/TECHNICAL.md)
 
 
 ## ✨ Features
