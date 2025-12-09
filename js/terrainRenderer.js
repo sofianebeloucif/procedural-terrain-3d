@@ -182,7 +182,7 @@ export class TerrainRenderer {
     }
 
     createSky() {
-        const skyGeometry = new THREE.SphereGeometry(800, 32, 32);
+        const skyGeometry = new THREE.SphereGeometry(1800, 32, 32);
 
         this.skyUniforms = {
             uSunPosition: { value: new THREE.Vector3(100, 100, 50) },
@@ -200,7 +200,6 @@ export class TerrainRenderer {
         this.scene.add(this.sky);
     }
 
-    // MODIFICATION ICI: Ajout de terrainSizeX et terrainSizeZ pour limiter l'eau
     createWater(terrainSizeX = 200, terrainSizeZ = 200) {
 
         // Utilise les dimensions du terrain (avec une petite marge si nécessaire)

@@ -7,27 +7,28 @@
 
 Real-time 3D procedural terrain generation using C/WebAssembly for high-performance computation and Three.js for rendering.
 
-[🇫🇷 Version française](README.fr.md) | [📺 Live Demo](#) | [📖 Technical Documentation](docs/TECHNICAL.md)
+[📺 Live Demo](#) | [📖 Technical Documentation](docs/TECHNICAL.md)
 
-![Terrain Generator Screenshot](assets/screenshots/demo.png)
 
 ## ✨ Features
 
 ### **Core Capabilities**
-- 🚀 **High Performance**: Terrain generation in C compiled to WebAssembly
-- 🌄 **Multiple Biomes**: Water, beach, grass, forest, mountains, snow
-- 🎨 **Procedural Generation**: Simplex noise with Fractal Brownian Motion
-- 🎮 **Interactive 3D**: Real-time orbit camera controls
-- ⚙️ **Customizable**: Adjust all terrain parameters in real-time
-- 💾 **Export**: Save terrain as OBJ file for 3D printing or modeling
+* 🚀 **High Performance**: Terrain generation implemented in C, compiled to WebAssembly for native speed.
+* 🏞️ **Multi-Biome Shading**: Sophisticated texture blending for **Sand, Grass, Rock, and Snow** based on height and slope.
+* 🌊 **Realistic Water**: Dynamic water plane with wave simulation and improved Fresnel effects.
+* 🎨 **Procedural Generation**: Utilizes Simplex noise with Fractal Brownian Motion (FBM) for complex, natural looking landscapes.
+* 🎮 **Interactive 3D**: Real-time orbit camera controls.
+* ⚙️ **Customizable**: Adjust all noise and biome parameters in real-time via the integrated UI.
+* 💾 **Export**: Save the generated terrain mesh as an **OBJ file** for external 3D software (Blender, Maya).
 
-### **Technical Features**
-- Simplex noise algorithm (better than Perlin)
-- Fractal Brownian Motion (FBM) with configurable octaves
-- Automatic normal calculation for realistic lighting
-- Biome system based on height and moisture
-- Level of Detail (LOD) ready architecture
-- Optimized mesh generation
+### **Technical Highlights**
+* **Simplex Noise**: Implementation of the superior Simplex algorithm (replacing Perlin).
+* **FBM**: Configurable parameters: **octaves, persistence, and lacunarity**.
+* **Automatic Normals**: Accurate normal calculation for realistic lighting and shading.
+* **Tri-Planar Mapping**: Used for seamless texture application on steep surfaces (rocks).
+* **Optimized Mesh Generation**: Efficient indexing and memory handling via WASM.
+
+---
 
 ## 🚀 Quick Start
 
@@ -115,34 +116,24 @@ Try predefined terrain types:
 
 ## 🛠️ Technology Stack
 
-### **Backend (Terrain Generation)**
-- **C**: Core terrain generation algorithms
-- **WebAssembly**: High-performance execution in browser
-- **Emscripten**: C to WebAssembly compiler
+### **Backend (Generation)**
+* **C**: Core logic for noise generation and mesh construction.
+* **WebAssembly (.wasm)**: High-speed execution of C code in the browser.
+* **Emscripten**: Toolchain for compiling C to WASM.
 
 ### **Frontend (Rendering & UI)**
-- **Three.js**: 3D rendering engine
-- **WebGL**: GPU-accelerated graphics
-- **Vanilla JavaScript**: No framework dependencies
-- **CSS3**: Modern styling
+* **Three.js**: Main 3D rendering library built on WebGL.
+* **WebGL**: GPU-accelerated graphics for fast drawing.
+* **Vanilla JavaScript / CSS3**: UI and application logic.
 
 ### **Algorithms**
-- Simplex Noise (Ken Perlin's improved noise)
-- Fractal Brownian Motion (FBM)
-- Biome generation with moisture mapping
-- Smooth normal calculation
-- Optimized mesh generation
+* Simplex Noise
+* Fractal Brownian Motion (FBM)
+* Height/Slope/Moisture based Biome Mapping
+* Optimized Indexing (Mesh Generation)
 
-## 📊 Performance
+---
 
-| Resolution | Vertices | Triangles | Gen Time | FPS |
-|------------|----------|-----------|----------|-----|
-| 64x64      | 4,096    | 8,192     | ~50ms    | 60  |
-| 128x128    | 16,384   | 32,768    | ~200ms   | 60  |
-| 256x256    | 65,536   | 131,072   | ~800ms   | 45  |
-| 512x512    | 262,144  | 524,288   | ~3s      | 30  |
-
-*Tested on: Intel i7, 16GB RAM, NVIDIA GTX 1060*
 
 ## 🎨 Screenshots
 
@@ -154,26 +145,23 @@ Try predefined terrain types:
 
 ### **Algorithm Details**
 
-**Simplex Noise**
-```
-noise(x, y) = contribution from 3 corners of simplex
-```
+The terrain complexity is achieved primarily through Fractal Brownian Motion (FBM), which layers multiple octaves of Simplex Noise.
 
-**Fractal Brownian Motion**
-```
-fbm(x, y) = Σ(amplitude[i] * noise(frequency[i] * x, frequency[i] * y))
-where:
-  amplitude[i] = persistence^i
-  frequency[i] = lacunarity^i
-```
+**Fractal Brownian Motion (FBM)**
+$$
+\text{fbm}(x, y) = \sum_{i=0}^{\text{Octaves}-1} \text{amplitude}[i] \cdot \text{noise}(\text{frequency}[i] \cdot x, \text{frequency}[i] \cdot y)
+$$
+Where $\text{amplitude}[i] = \text{persistence}^i$ and $\text{frequency}[i] = \text{lacunarity}^i$.
+
+
 
 **Biome Selection**
 ```
-if (height < 0.3) → Water
-else if (height < 0.35) → Beach
-else if (height < 0.65) → Grass/Forest (depends on moisture)
-else if (height < 0.8) → Mountain/Desert (depends on moisture)
-else → Snow
+if (height < uSandLevel) → Sand
+else if (height < uGrassStart) → Grass (with sand blend)
+else if (slope < uRockSlope) → Grass/Forest
+else if (height > uSnowLevel) → Snow
+else → Rock (High Slope)
 ```
 
 See [Technical Documentation](docs/TECHNICAL.md) for more details.
@@ -194,18 +182,18 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 👤 Author
 
-**Your Name**
-- Portfolio: [yourwebsite.com](#)
-- GitHub: [@yourusername](https://github.com/yourusername)
-- LinkedIn: [Your Name](https://linkedin.com/in/yourname)
+Sofiane Beloucif
+- Portfolio: [sofianebeloucif.com](#)
+- GitHub: [@sofianebeloucif](https://github.com/yourusername)
+
 
 ## 🙏 Acknowledgments
 
-- Ken Perlin for Simplex Noise algorithm
-- Three.js community
-- Emscripten developers
-- Sebastian Lague's procedural terrain tutorials
-
+* **Ken Perlin** for the Simplex Noise algorithm: [https://cs.nyu.edu/~perlin/](https://cs.nyu.edu/~perlin/)
+* **Three.js** community: [https://threejs.org/](https://threejs.org/)
+* **Emscripten** developers: [https://emscripten.org/](https://emscripten.org/)
+* **Sebastian Lague's** procedural terrain tutorials: [https://www.youtube.com/c/SebastianLague](https://www.youtube.com/c/SebastianLague)
+* **The Book of Shaders**: [https://thebookofshaders.com/](https://thebookofshaders.com/)
 ## 🔮 Future Enhancements
 
 - [ ] Infinite terrain (chunk system)
@@ -216,7 +204,6 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - [ ] Texture generation
 - [ ] Cave systems
 - [ ] Real-time editing tools
-- [ ] Multiplayer exploration
 
 
 ---
