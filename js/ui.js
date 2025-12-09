@@ -1,6 +1,6 @@
 // UI Controller - User interface management
 
-class UIController {
+export class UIController {
     constructor(terrainGenerator) {
         this.terrainGenerator = terrainGenerator;
         this.controlsPanel = document.getElementById('controls-panel');

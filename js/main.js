@@ -1,4 +1,7 @@
 // Main Application Controller
+import { TerrainRenderer } from './terrainRenderer.js';
+import { CameraController } from './cameraController.js';
+import { UIController } from './ui.js';
 
 class TerrainGenerator {
     constructor() {
@@ -39,7 +42,7 @@ class TerrainGenerator {
             this.updateLoadingProgress(90, 'Generating initial terrain...');
             await this.generate({
                 seed: 12345,
-                resolution: 128,
+                resolution: 128, // <-- Cette valeur sera passée comme dimension
                 scale: 4,
                 height: 30,
                 octaves: 6,
@@ -147,13 +150,15 @@ class TerrainGenerator {
 
             console.log('Data copied from WASM memory');
 
-            // Load terrain into renderer
+            // --- CHANGEMENT ICI ---
+            // Le plan d'eau est maintenant dimensionné en fonction de la résolution du terrain
             await this.renderer.loadTerrain({
                 vertices: vertices,
                 normals: normals,
                 colors: colors,
                 indices: indices
-            });
+            }, config.resolution, config.resolution);
+            // ----------------------
 
             // Free WASM memory
             const freeTerrainWasm = this.wasmModule.cwrap('freeTerrainWasm', null, ['number']);

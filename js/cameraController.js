@@ -1,6 +1,6 @@
 // Camera Controller - Orbit controls for camera
 
-class CameraController {
+export class CameraController {
     constructor(camera, domElement) {
         this.camera = camera;
         this.domElement = domElement;
