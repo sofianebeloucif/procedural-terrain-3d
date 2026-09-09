@@ -1,0 +1,26 @@
+name: CI
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+
+jobs:
+  wasm-build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Emscripten
+        uses: mymindstorm/setup-emsdk@v14
+        with:
+          version: 3.1.64
+
+      - name: Build WebAssembly module
+        working-directory: c
+        run: bash build.sh
+
+      - name: Verify build artifacts
+        run: |
+          test -f wasm/terrain.js
+          test -f wasm/terrain.wasm

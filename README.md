@@ -1,5 +1,6 @@
 # 🏔️ Procedural Terrain Generator 3D
 
+[![CI](https://github.com/sofianebeloucif/procedural-terrain-3d/actions/workflows/ci.yml/badge.svg)](https://github.com/sofianebeloucif/procedural-terrain-3d/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![C](https://img.shields.io/badge/C-00599C?logo=c&logoColor=white)](https://en.wikipedia.org/wiki/C_(programming_language))
 [![WebAssembly](https://img.shields.io/badge/WebAssembly-654FF0?logo=webassembly&logoColor=white)](https://webassembly.org/)
